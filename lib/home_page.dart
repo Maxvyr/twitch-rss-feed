@@ -68,10 +68,22 @@ class MyHomePage extends ConsumerWidget {
                 ),
               ),
               streamerNameIsOk
-                  ? const Text("Ce streamer n'existe pas")
+                  ? const Text(
+                      "Ce streamer n'existe pas",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 22.0,
+                      ),
+                    )
                   : const SizedBox(),
               textFieldIsEmpty
-                  ? const Text("Tu n'as pas rentrer de nom de streamer")
+                  ? const Text(
+                      "Tu n'as pas rentrer de nom de streamer",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 22.0,
+                      ),
+                    )
                   : const SizedBox(),
             ],
           ),

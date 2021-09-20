@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twitch_rss_feed/controller/observer/reset_provider.dart';
 import 'package:twitch_rss_feed/home_page.dart';
 
 void main() {
   runApp(
     ProviderScope(
-      child: MyApp(),
+      observers: [
+        ResetProviderState(),
+      ],
+      child: const MyApp(),
     ),
   );
 }

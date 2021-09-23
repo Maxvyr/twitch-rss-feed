@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'package:twitch_rss_feed/controller/util/navigation.dart';
-import 'package:twitch_rss_feed/models/twitch_vod.dart';
 import 'package:twitch_rss_feed/views/show_vod.dart';
-import 'package:webfeed/webfeed.dart';
 
 final streamerNameisOkProvider = StateProvider<bool>((ref) => false);
 final textisEmptyProvider = StateProvider<bool>((ref) => false);

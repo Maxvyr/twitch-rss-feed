@@ -15,30 +15,6 @@ class MyHomePage extends ConsumerWidget {
   final String title;
   final TextEditingController _textEditingController = TextEditingController();
 
-  // TODO reformat code
-  Future<List<TwitchVOD>> callRSSFeed(String streamer) async {
-    List<TwitchVOD> list = [];
-    final res = await http
-        .get(Uri.parse("https://twitchrss.appspot.com/vod/$streamer"));
-    debugPrint(res.statusCode.toString());
-    if (res.statusCode == 200) {
-      final mapRes = RssFeed.parse(res.body);
-      debugPrint(mapRes.title);
-      debugPrint("${mapRes.items!.length}");
-      final items = mapRes.items!;
-      for (var item in items) {
-        final twitchVOD = TwitchVOD.fromRSS(item);
-        list.add(twitchVOD);
-        debugPrint(twitchVOD.title);
-      }
-      debugPrint("${list.length}");
-    } else {
-      debugPrint(res.statusCode.toString());
-    }
-
-    return list;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final streamerNotExistProvider = ref.watch(streamerNameisOkProvider);
@@ -91,11 +67,13 @@ class MyHomePage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          if (_textEditingController.text.isEmpty) {
+          final streamerName = _textEditingController.text;
+
+          if (streamerName.isEmpty) {
             ref.read(textisEmptyProvider).state =
                 !ref.read(textisEmptyProvider).state;
           } else {
-            searchVOD(context, ref);
+            Utils.goToNextPage(context, ShowVod(streamerName: streamerName));
           }
         },
         tooltip: "Rechercher",
@@ -109,19 +87,24 @@ class MyHomePage extends ConsumerWidget {
     );
   }
 
-  void searchVOD(BuildContext context, WidgetRef ref) {
-    callRSSFeed(_textEditingController.text).then((list) {
-      if (list.isEmpty) {
-        ref.read(streamerNameisOkProvider).state =
-            !ref.read(streamerNameisOkProvider).state;
-      } else {
-        Utils.goToNextPage(
-          context,
-          ShowVod(
-            list: list,
-          ),
-        );
-      }
-    });
+  void searchVOD(BuildContext context, String streamerName, WidgetRef ref) {
+    Utils.goToNextPage(
+        context,
+        ShowVod(
+          streamerName: streamerName,
+        ));
+    // callRSSFeed(_textEditingController.text).then((list) {
+    //   if (list.isEmpty) {
+    //     ref.read(streamerNameisOkProvider).state =
+    //         !ref.read(streamerNameisOkProvider).state;
+    //   } else {
+    //     Utils.goToNextPage(
+    //       context,
+    //       ShowVod(
+    //         list: list,
+    //       ),
+    //     );
+    //   }
+    // });
   }
 }

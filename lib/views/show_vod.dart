@@ -1,46 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:twitch_rss_feed/models/twitch_vod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twitch_rss_feed/state/state_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ShowVod extends StatefulWidget {
-  late final List<TwitchVOD> list;
-  ShowVod({Key? key, required this.list}) : super(key: key);
+class ShowVod extends ConsumerWidget {
+  final String streamerName;
+  const ShowVod({required this.streamerName, Key? key}) : super(key: key);
 
   @override
-  _ShowVodState createState() => _ShowVodState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final listVod = ref.watch(listVODProvider(streamerName));
 
-class _ShowVodState extends State<ShowVod> {
-  void _launchUrl(String url) async {
-    await canLaunch(url) ? await launch(url) : throw "Could not open this $url";
-  }
+    void _launchUrl(String url) async {
+      await canLaunch(url)
+          ? await launch(url)
+          : throw "Could not open this $url";
+    }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ListView.builder(
-          itemCount: widget.list.length,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          itemBuilder: (context, i) {
-            final twitchVod = widget.list[i];
-            debugPrint("here => ${twitchVod.title}");
-            return Container(
-                child: Column(
-              children: [
-                Text(twitchVod.title),
-                Text(twitchVod.link),
-                Text(twitchVod.date.toString()),
-                ElevatedButton(
-                  onPressed: () {
-                    _launchUrl(twitchVod.link);
-                  },
-                  child: const Text("Voir le live"),
-                ),
-              ],
-            ));
-          },
+      body: listVod.when(
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
         ),
+        error: (err, stack) => Center(
+          child: Text("ERROR => $err"),
+        ),
+        data: (list) {
+          return ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (context, i) {
+              final vod = list[i];
+
+              return SizedBox(
+                  child: Column(
+                children: [
+                  Text(vod.title),
+                  Text(vod.link),
+                  Text(vod.date.toString()),
+                  ElevatedButton(
+                    onPressed: () {
+                      _launchUrl(vod.link);
+                    },
+                    child: const Text("Voir le live"),
+                  ),
+                ],
+              ));
+            },
+          );
+        },
       ),
     );
   }

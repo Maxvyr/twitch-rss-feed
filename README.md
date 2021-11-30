@@ -10,6 +10,10 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/A0A72UVP8)
 
 
+## Crypto Tips
+
+![https://i.imgur.com/4bS8l7R.png](https://i.imgur.com/o7CLDbW.png)
+
 
 A flutter project for recover Twitch VOD for your favorite streamer, Statev management use [riverpod](https://riverpod.dev/)
 
@@ -45,10 +49,6 @@ git clone https://github.com/Maxvyr/twitch-rss-feed.git
 ## Pull Request
 
 - If you want to help for add new API or other, you are welcome ;)
-
-## Crypto Tips
-
-![https://i.imgur.com/4bS8l7R.png](https://i.imgur.com/4bS8l7R.png)
 
 ## Contact Me
 

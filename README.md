@@ -12,7 +12,7 @@
 
 ## Crypto Tips
 
-![https://i.imgur.com/wuW30D4.png](https://i.imgur.com/wuW30D4.png)
+![https://raw.githubusercontent.com/Maxvyr/Maxvyr/main/img/tips/github-tips-crypto.png](https://raw.githubusercontent.com/Maxvyr/Maxvyr/main/img/tips/github-tips-crypto.png)
 
 
 A flutter project for recover Twitch VOD for your favorite streamer, Statev management use [riverpod](https://riverpod.dev/)

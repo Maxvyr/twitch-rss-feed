@@ -52,7 +52,7 @@ git clone https://github.com/Maxvyr/twitch-rss-feed.git
 
 ## Contact Me
 
-contact : [pandamydev@gmail.com](mailto:pandamydev@gmail.com)
+contact : [contact@pandamy.xyz](mailto:contact@pandamy.xyz)
 
 ## Requirements
 * Computer (Windows, Mac or Linux)
